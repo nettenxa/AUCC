@@ -89,7 +89,7 @@ promiseMo.then(value => {
             let url = "https://www.google.com/maps/place/";
             let location = url.concat(lat,",",lon);
             console.log(location)
-            sleep(6000);
+            sleep(60000);
             return client.pushMessage('U574e92cf98715d9fbe64031a35804e7b', { 
               type: 'text', 
               text: "กรุณาติดติดต่อกลับผู้ใช้งาน\n" + location + "คลิ๊กเพื่อ"
