@@ -55,10 +55,10 @@ let promiseMo =  new Promise((resolve, reject) => {
 });
 
 let promiseMCU =  new Promise((resolve, reject) => {
-  sensor.on('value', (snapshot) => {
-  let Gx = snapshot.val().xValue;
-  let Gy = snapshot.val().yValue;
-  let Gz = snapshot.val().zValue;
+  userMCU.on('value', (snapshot) => {
+  let Gx = snapshot.val().valx;
+  let Gy = snapshot.val().valy;
+  let Gz = snapshot.val().valz;
   let alert = snapshot.val().Alert;
   console.log('Alert: ' + alert);
   console.log('xValue: ' + Gx);
@@ -89,6 +89,7 @@ promiseMo.then(value => {
             let url = "https://www.google.com/maps/place/";
             let location = url.concat(lat,",",lon);
             console.log(location)
+            sleep(6000);
             return client.pushMessage('U574e92cf98715d9fbe64031a35804e7b', { 
               type: 'text', 
               text: "กรุณาติดติดต่อกลับผู้ใช้งาน\n" + location + "คลิ๊กเพื่อ"
