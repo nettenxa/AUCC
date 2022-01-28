@@ -1,41 +1,16 @@
-#include "I2Cdev.h"
-#include "MPU6050_6Axis_MotionApps20.h"
 #include "Wire.h"
-MPU6050 mpu;
-int16_t ax, ay, az;
-int16_t gx, gy, gz;
-int valx , valy , valz;
-char rd;
-int prevVal;
-int pin11 = 0 , pin10 = 2 ;
-int val1 , val2 ;
-int valgy1 = 0 , valgy2 = 0;
-
 #define PCF8591 (0x48)
 byte adcvalue0, adcvalue1, adcvalue2, adcvalue3;
 float volt;
+#define LED_PIN 13
 
-void setup()
-{
+void setup() {
   Wire.begin();
   Serial.begin(38400);
-  Serial.println("Initialize MPU");
-  mpu.initialize();
-  Serial.println(mpu.testConnection() ? "Connected" : "Connection failed");
+  pinMode(LED_PIN, OUTPUT);
 }
-void loop()
-{
-  mpu.getMotion6(&ax, &ay, &az, &gx, &gy, &gz);
-  valx = map(ax, -17000, 17000, 0, 179);
-  valy = map(ay, -17000, 17000, 0, 179);
-  valz = map(az, -17000, 17000, 0, 179);
-  Serial.print("axis x = ") ;
-  Serial.print(valx) ;
-  Serial.print(" axis y = ") ;
-  Serial.print(valy) ;
-  Serial.print(" axis z = ") ;
-  Serial.println(valz) ;
-  //////////////////////////////////////////////////
+
+void loop() {
   Wire.beginTransmission(PCF8591);
   Wire.write(0x04);
   Wire.endTransmission();
@@ -62,6 +37,5 @@ void loop()
   Wire.write(0x40);
   Wire.write(adcvalue0);
   Wire.endTransmission();
-  //////////////////////////////////////////////////
-  delay(100);
+  delay(500);
 }

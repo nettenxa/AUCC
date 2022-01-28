@@ -1,10 +1,10 @@
 #include <FirebaseESP8266.h>
 #include <ESP8266WiFi.h>
 
-#define WIFI_SSID "Net2.4G" 
-#define WIFI_PASSWORD "054015698"
+#define WIFI_SSID "Net_2.4G" 
+#define WIFI_PASSWORD "0861962930"
 
-#define FIREBASE_HOST_Mobile "elcare-map-service-default-rtdb.firebaseio.com"
+#define FIREBASE_HOST_Mobile "elcare-map-service-default-rtdb.firebaseio.com/Location"
 #define FIREBASE_KEY_Mobile "6CyDhOApa9oR1FzNWIKW114JMC5ha2IbLOSFEGBy"
 
 FirebaseData firebaseData_Mobile;
@@ -29,7 +29,19 @@ void loop() {
         yield();
         json->iteratorGet(index, type, key, value);
         if (type == FirebaseJson::JSON_OBJECT && key.length() > 1) {
-            Serial.println(key + " : " + value);
+            
+//            Serial.println(key);
+            if (key == "latitude"){
+//              Serial.println(key);
+//              Serial.println(" : " + value);
+                Serial.println(key + " : " + value);
+            }
+            if (key == "longitude"){
+//              Serial.println(key);
+//              Serial.println(" : " + value);
+               Serial.println(key + " : " + value);
+            }
+
         }
     }
     json->iteratorEnd();
