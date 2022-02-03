@@ -45,6 +45,8 @@ int returnTime = 0;
 
 #define WIFI_SSID "Net_2.4G"
 #define WIFI_PASSWORD "0861962930"
+//#define WIFI_SSID "NettenXA"
+//#define WIFI_PASSWORD "net123456789"
 
 #define FIREBASE_HOST "elcare-mcu-default-rtdb.firebaseio.com"
 #define FIREBASE_KEY "1BA25vurmM1TEVC5Ug1jxOLE4MmHDnVRasGev1yn"
@@ -91,6 +93,8 @@ void setup()
   Serial.println(mpu.testConnection() ? "Connected" : "Connection failed");
   connectWifi();
   Firebase.begin(FIREBASE_HOST, FIREBASE_KEY);
+  mp3_play_physical (4);
+  delay(5000);
   //
 }
 void loop()
@@ -101,23 +105,23 @@ void loop()
     alert += 1;
     alertTEST += 1;
     //    delay(200);
-    if (alertTEST > 2) { // start = 0 end = 5 : alert = 5
+    if (alertTEST > 7) { // start = 0 end = 5 : alert = 5
       Serial.println("แหล่งอำนวยความสะดวก");
       mp3_play_physical (1);
+      alertTEST = 0;
       delay(5000);
       //      mp3_play_physical (5);
       //      delay(2000);
     }
     if (alert > 5) { // start = 0 end = 5 : alert = 5
       Serial.println("Net");
-      //      mp3_play_physical (7);
+      mp3_play_physical (7);
       returnAlert = 1;
     }
   }
   else {
     Serial.println("Don't Click");
     Serial.println(alert);
-    alertTEST = 0;
     //    mp3_play_physical (7);
     alert = 0;
   }
