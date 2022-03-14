@@ -47,6 +47,9 @@ int returnTime = 0;
 #define WIFI_PASSWORD "0861962930"
 //#define WIFI_SSID "NettenXA"
 //#define WIFI_PASSWORD "net123456789"
+//#define WIFI_SSID "Net1"
+//#define WIFI_PASSWORD "123456789o"
+
 
 #define FIREBASE_HOST "elcare-mcu-default-rtdb.firebaseio.com"
 #define FIREBASE_KEY "1BA25vurmM1TEVC5Ug1jxOLE4MmHDnVRasGev1yn"
@@ -79,7 +82,9 @@ void setup()
   //  delay(1000);
   Serial.println(F("DFPlayer Mini online."));
 
-  mp3_set_volume (20); // Volump
+//  mp3_set_volume (0); // Volump
+  mp3_set_volume (3); // Volump
+//  mp3_set_volume (20); // Volump
   // END-DFPlayer //
 
   // Infrared //
@@ -99,13 +104,18 @@ void setup()
 }
 void loop()
 {
+//  mp3_set_volume (0); // Volump
+//  mp3_set_volume (6); // Volump
+//  mp3_set_volume (15); // Volump
+//  mp3_set_volume (20); // Volump
+
   buttonState = digitalRead(buttonAlt);
   if (buttonState == HIGH) {
     Serial.println("Click");
     alert += 1;
     alertTEST += 1;
     //    delay(200);
-    if (alertTEST > 7) { // start = 0 end = 5 : alert = 5
+    if (alertTEST > 4) { // start = 0 end = 5 : alert = 5
       Serial.println("แหล่งอำนวยความสะดวก");
       mp3_play_physical (1);
       alertTEST = 0;
@@ -115,7 +125,7 @@ void loop()
     }
     if (alert > 5) { // start = 0 end = 5 : alert = 5
       Serial.println("Net");
-      mp3_play_physical (7);
+//      mp3_play_physical (7);
       returnAlert = 1;
     }
   }
@@ -181,9 +191,9 @@ void loop()
   if (distance > 150) {
     distance = 150;
   }
-  else if (distance < 30) {
-    distance = cm;
-  }
+//  else if (distance < 30) {
+//    distance = cm;
+//  }
   // END-Infrared //
 
   // Print Check //
@@ -197,10 +207,49 @@ void loop()
   Serial.println ();
   // END Print Check //
   //////////////////////////////
-  if (cm > 121 && distance > 121) {
+//  if (cm > 121 && distance > 121) {
+//    mp3_play_physical (0);
+//  }
+//  else if (cm > 120 && distance > 120) {
+//    mp3_play_physical (7);
+//    delay(1000);
+//    //    digitalWrite(buzz, LOW);
+//    //    delay(100);
+//    Serial.print("120");
+//    Serial.print("\n");
+//  }
+//  else if (cm > 80 && distance > 80) {
+//    mp3_play_physical (7);
+//    delay(500);
+//    //    digitalWrite(buzz, LOW);
+//    //    delay(100);
+//    Serial.print("80");
+//    Serial.print("\n");
+//  }
+//  else if (cm > 50 && distance > 50) {
+//    mp3_play_physical (7);
+//    delay(300);
+//    //    digitalWrite(buzz, LOW);
+//    //    delay(100);
+//    Serial.print("50");
+//    Serial.print("\n");
+//  }
+//  else if (cm > 20 && distance > 20) {
+//    mp3_play_physical (7);
+//    delay(10);
+//    //    digitalWrite(buzz, LOW);
+//    //    delay(100);
+//    Serial.print("20");
+//    Serial.print("\n");
+//  }
+//  if (cm < 20 ) {
+//    //    digitalWrite(buzz, LOW);
+//    mp3_play_physical (7);
+//  }
+if (distance > 121) {
     mp3_play_physical (0);
   }
-  else if (cm > 120 && distance > 120) {
+  else if (distance > 120) {
     mp3_play_physical (7);
     delay(1000);
     //    digitalWrite(buzz, LOW);
@@ -208,7 +257,7 @@ void loop()
     Serial.print("120");
     Serial.print("\n");
   }
-  else if (cm > 80 && distance > 80) {
+  else if (distance > 80) {
     mp3_play_physical (7);
     delay(500);
     //    digitalWrite(buzz, LOW);
@@ -216,7 +265,7 @@ void loop()
     Serial.print("80");
     Serial.print("\n");
   }
-  else if (cm > 50 && distance > 50) {
+  else if (distance > 50) {
     mp3_play_physical (7);
     delay(300);
     //    digitalWrite(buzz, LOW);
@@ -224,7 +273,7 @@ void loop()
     Serial.print("50");
     Serial.print("\n");
   }
-  else if (cm > 20 && distance > 20) {
+  else if (distance > 20) {
     mp3_play_physical (7);
     delay(10);
     //    digitalWrite(buzz, LOW);
@@ -280,29 +329,29 @@ void loop()
   // END-DROP //
 
   // FireBase //
-  bool state = true;
-  if (Firebase.setInt(firebaseData, "/MCU/valx", valx)) {
-    Serial.println("Added");
-  }
-  if (Firebase.setInt(firebaseData, "/MCU/valy", valy)) {
-    Serial.println("Added");
-  }
-  if (Firebase.setInt(firebaseData, "/MCU/valz", valz)) {
-    Serial.println("Added");
-  }
-  if (returnAlert == 1) {
-    if (Firebase.setInt(firebaseData, "/MCU/Alert", returnAlert)) {
-      Serial.println("Added");
-    }
-    //    Firebase.setInt(firebaseData, "Alert", returnAlert);
-    returnAlert = 0;
-  }
-  else {
-    //    Firebase.setInt(firebaseData, "Alert", returnAlert);
-    if (Firebase.setInt(firebaseData, "/MCU/Alert", returnAlert)) {
-      Serial.println("Added");
-    }
-  }
+//  bool state = true;
+//  if (Firebase.setInt(firebaseData, "/MCU/valx", valx)) {
+//    Serial.println("Added");
+//  }
+//  if (Firebase.setInt(firebaseData, "/MCU/valy", valy)) {
+//    Serial.println("Added");
+//  }
+//  if (Firebase.setInt(firebaseData, "/MCU/valz", valz)) {
+//    Serial.println("Added");
+//  }
+//  if (returnAlert == 1) {
+//    if (Firebase.setInt(firebaseData, "/MCU/Alert", returnAlert)) {
+//      Serial.println("Added");
+//    }
+//    //    Firebase.setInt(firebaseData, "Alert", returnAlert);
+//    returnAlert = 0;
+//  }
+//  else {
+//    //    Firebase.setInt(firebaseData, "Alert", returnAlert);
+//    if (Firebase.setInt(firebaseData, "/MCU/Alert", returnAlert)) {
+//      Serial.println("Added");
+//    }
+//  }
   // END-FireBase //
 
   delay(100);
